@@ -3,7 +3,6 @@ os: linux
 files:
   - source: /index.html
     destination: /var/www/html/
-    overwrite: false  # Do not overwrite existing files
 permissions:
   - object: /var/www/html
     pattern: "**"
@@ -12,13 +11,14 @@ permissions:
     mode: 755
 hooks:
   BeforeInstall:
-    - location: scripts/cleanup.sh  # Add cleanup script to remove existing files
-      timeout: 300
-      runas: root
     - location: scripts/install_dependencies
       timeout: 300
       runas: root
     - location: scripts/start_server
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/cleanup_existing_files.sh
       timeout: 300
       runas: root
   ApplicationStop:
