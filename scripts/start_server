@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo service httpd start
+echo "Running after_install script"
